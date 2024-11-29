@@ -16,5 +16,21 @@ namespace Disk_Scheduling_Algorithm_Simulator
         {
             InitializeComponent();
         }
+
+        private void LoadFormInPanel(Form form)
+        {
+            mainPanel.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            mainPanel.Controls.Add(form);
+            form.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Shortest_Seek_Time_First_Form sstf = new Shortest_Seek_Time_First_Form();
+            LoadFormInPanel(sstf);
+        }
     }
 }
