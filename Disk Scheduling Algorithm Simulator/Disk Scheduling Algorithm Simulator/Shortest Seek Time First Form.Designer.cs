@@ -57,7 +57,7 @@
             this.label1.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(800, 148);
+            this.label1.Size = new System.Drawing.Size(800, 117);
             this.label1.TabIndex = 0;
             this.label1.Text = "Shortest Seek Time First";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -87,11 +87,13 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tracksTable.DefaultCellStyle = dataGridViewCellStyle2;
-            this.tracksTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tracksTable.Dock = System.Windows.Forms.DockStyle.Top;
             this.tracksTable.Location = new System.Drawing.Point(0, 0);
             this.tracksTable.Name = "tracksTable";
-            this.tracksTable.Size = new System.Drawing.Size(380, 236);
+            this.tracksTable.Size = new System.Drawing.Size(380, 260);
             this.tracksTable.TabIndex = 1;
+            this.tracksTable.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.tracksTable_RowsAdded);
+            this.tracksTable.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.tracksTable_RowsRemoved);
             // 
             // NumOfReqTracks
             // 
@@ -118,12 +120,12 @@
             this.tableLayoutPanel1.Controls.Add(this.chart1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 151);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 120);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(776, 287);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(776, 375);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // chart1
@@ -133,9 +135,9 @@
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(391, 47);
+            this.chart1.Location = new System.Drawing.Point(391, 60);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(381, 236);
+            this.chart1.Size = new System.Drawing.Size(381, 311);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";
             // 
@@ -158,9 +160,9 @@
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Controls.Add(this.tracksTable);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(4, 47);
+            this.panel1.Location = new System.Drawing.Point(4, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(380, 236);
+            this.panel1.Size = new System.Drawing.Size(380, 311);
             this.panel1.TabIndex = 4;
             // 
             // tableLayoutPanel2
@@ -170,8 +172,8 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.button2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 185);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 260);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -199,7 +201,7 @@
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(4, 1);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(380, 42);
+            this.label2.Size = new System.Drawing.Size(380, 55);
             this.label2.TabIndex = 5;
             this.label2.Text = "Enter Tracks";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -210,7 +212,7 @@
             this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(391, 1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(381, 42);
+            this.label3.Size = new System.Drawing.Size(381, 55);
             this.label3.TabIndex = 6;
             this.label3.Text = "Tracks Line Graph";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

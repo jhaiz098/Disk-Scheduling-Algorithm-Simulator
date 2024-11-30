@@ -19,7 +19,17 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         private void Shortest_Seek_Time_First_Form_Load(object sender, EventArgs e)
         {
-            tracksTable.Columns[0].Width = Convert.ToInt32(tracksTable.Width * 0.2f);
+            Utilities.ResizeNoOfReqFirstColumn(tracksTable);
+        }
+
+        private void tracksTable_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            Utilities.UpdateNoOfReqTracks(tracksTable);
+        }
+
+        private void tracksTable_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            Utilities.UpdateNoOfReqTracks(tracksTable);
         }
     }
 }

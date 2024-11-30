@@ -61,6 +61,7 @@
     <Compile Include="Shortest Seek Time First Form.Designer.cs">
       <DependentUpon>Shortest Seek Time First Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
