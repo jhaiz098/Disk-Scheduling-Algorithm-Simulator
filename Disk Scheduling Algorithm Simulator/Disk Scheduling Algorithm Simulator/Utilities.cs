@@ -21,5 +21,20 @@ namespace Disk_Scheduling_Algorithm_Simulator
         {
             tracksTable.Columns[0].Width = Convert.ToInt32(tracksTable.Width * 0.2f);
         }
+
+        public static int GetHighestTrack(List<Track> requestedTracks)
+        {
+            int highestTrack = int.MinValue;
+
+            for (int i = 0; i < requestedTracks.Count; i++)
+            {
+                if (requestedTracks[i].track > highestTrack)
+                {
+                    highestTrack = requestedTracks[i].track;
+                }
+            }
+
+            return highestTrack;
+        }
     }
 }
