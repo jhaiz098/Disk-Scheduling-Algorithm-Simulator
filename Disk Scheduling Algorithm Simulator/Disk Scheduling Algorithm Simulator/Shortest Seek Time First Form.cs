@@ -12,6 +12,9 @@ namespace Disk_Scheduling_Algorithm_Simulator
 {
     public partial class Shortest_Seek_Time_First_Form : Form
     {
+
+        public List<int> requestedTracks = new List<int>();
+
         public Shortest_Seek_Time_First_Form()
         {
             InitializeComponent();
@@ -30,6 +33,15 @@ namespace Disk_Scheduling_Algorithm_Simulator
         private void tracksTable_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             Utilities.UpdateNoOfReqTracks(tracksTable);
+        }
+
+        private void calculate_btn_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < tracksTable.Rows.Count - 1; i++)
+            {
+                requestedTracks.Add(Convert.ToInt32(tracksTable.Rows[i].Cells[1].Value));
+            }
+            MessageBox.Show(requestedTracks.Count.ToString());
         }
     }
 }
