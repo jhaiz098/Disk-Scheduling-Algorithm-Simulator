@@ -16,5 +16,10 @@ namespace Disk_Scheduling_Algorithm_Simulator
         {
             InitializeComponent();
         }
+
+        private void Shortest_Seek_Time_First_Form_Load(object sender, EventArgs e)
+        {
+            tracksTable.Columns[0].Width = Convert.ToInt32(tracksTable.Width * 0.2f);
+        }
     }
 }
