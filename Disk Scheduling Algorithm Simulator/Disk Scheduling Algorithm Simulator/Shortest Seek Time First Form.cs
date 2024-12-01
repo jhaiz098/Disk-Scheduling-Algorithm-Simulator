@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Forms.VisualStyles;
 
 namespace Disk_Scheduling_Algorithm_Simulator
 {
     public partial class Shortest_Seek_Time_First_Form : Form
     {
 
-        public List<Track> requestedTracks = new List<Track>();
-        public List<int> trackPath = new List<int>();
-        public int highestTrack;
-        public int minBoundTrack = 0;
-        public int maxBoundTrack;
-        public int initialCurrentHeadTrack;
-        public int currentHeadTrack;
+        private List<Track> requestedTracks = new List<Track>();
+        private List<int> trackPath = new List<int>();
+        private int numberOfTracks;
+
+        private int highestTrack;
+        private int minBoundTrack = 0;
+        private int maxBoundTrack;
+        private int initialCurrentHeadPosition;
+        private int currentHeadPosition;
 
         public Shortest_Seek_Time_First_Form()
         {
@@ -46,51 +50,109 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         private void calculate_btn_Click(object sender, EventArgs e)
         {
+            //Checks if all input in the requested tracks is integer
+            for (int i = 0; i < tracksTable.RowCount - 1; i++)
+            {
+                var cellValue = tracksTable.Rows[i].Cells[1].Value;
+
+                if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
+                {
+                    MessageBox.Show("Cell is empty or null at row " + (i + 1), "Error");
+                }
+                else
+                {
+                    int val;
+                    if (!int.TryParse(cellValue.ToString(), out val))
+                    {
+                        // If the value is not an integer
+                        MessageBox.Show("Invalid integer at row " + (i + 1) + ": \n" +
+                                        "Value is: " + cellValue.ToString(), "Error");
+                    }
+                }
+            }
+
             //Store the input to a list
-            for (int i = 0; i < tracksTable.Rows.Count - 1; i++)
+            for (int i = 0; i < tracksTable.RowCount - 1; i++)
             {
                 int track = Convert.ToInt32(tracksTable.Rows[i].Cells[1].Value);
                 requestedTracks.Add(new Track(track));
             }
 
-            //Store the highest track 
-            highestTrack = Utilities.GetHighestTrack(requestedTracks);
-
-            //Set the max track
-            maxBoundTrack = highestTrack - 1;
-
             //Set the current head track
-            initialCurrentHeadTrack = new Random().Next(0, highestTrack);
-            currentHeadTrack = initialCurrentHeadTrack;
+            initialCurrentHeadPosition = new Random().Next(0, highestTrack);
+            currentHeadPosition = initialCurrentHeadPosition;
 
-            //Inside is the main calculations
+            //Do The main calculation
             Calculate();
         }
 
         private void Calculate()
         {
-            //Main loop
-            for(int i = 0; i < requestedTracks.Count + 1; i++)
+            while(IsFinished() == false)
             {
-                /*Will check which track is nearest to the current head track
-                and store it to variable*/
-                int nearestTrack = currentHeadTrack;
-                for(int o = 0; o < requestedTracks.Count; o++)
+                int nearestTrack;
+                int lowestDifference = int.MaxValue;
+                for (int i = 0; i < requestedTracks.Count; i++)
                 {
-                    if (requestedTracks[i].track < nearestTrack && 
-                        requestedTracks[i].passed == false)
+                    int difference = currentHeadPosition - requestedTracks[i].track;
+                    difference = Math.Abs(difference);
+
+                    if (difference < lowestDifference)
                     {
+                        lowestDifference = difference;
                         nearestTrack = requestedTracks[i].track;
                     }
                 }
-
-                /*Add the current head track to a variable to be use for 
-                the line graph later*/
-                trackPath.Add(currentHeadTrack);
-
-                //Set the current head track to the nearest track
-                currentHeadTrack = nearestTrack;
             }
+        }
+
+        private bool IsFinished()
+        {
+            for(int i = 0; i < requestedTracks.Count; i++)
+            {
+                if (requestedTracks[i].passed == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void confirm_btn_Click(object sender, EventArgs e)
+        {
+            //Error if number of tracks is empty
+            if(noOfTracks_txt.Text == string.Empty || string.IsNullOrWhiteSpace(noOfTracks_txt.Text.ToString()))
+            {
+                MessageBox.Show("Invalid input: Please enter a value.", "Error");
+                noOfTracks_txt.Text = "";
+                return;
+            }
+
+            //Checks if number of tracks input is integer
+            int noOfTracks;
+            if (int.TryParse(noOfTracks_txt.Text, out noOfTracks))
+            {
+                //If integer.
+                noOfTracks_txt.ReadOnly = true;
+                confirm_btn.Enabled = false;
+
+                calculate_btn.Enabled = true;
+                reset_btn.Enabled = true;
+
+                tracksTable.ReadOnly = false;
+                tracksTable.Columns[0].ReadOnly = true;
+                tracksTable.DefaultCellStyle.BackColor = SystemColors.Window;
+
+                numberOfTracks = noOfTracks;
+            }
+            else
+            {
+                //If not integer.
+                MessageBox.Show("Invalid input: Only integer values are accepted.", "Error");
+                noOfTracks_txt.Text = "";
+            }
+
         }
     }
 
