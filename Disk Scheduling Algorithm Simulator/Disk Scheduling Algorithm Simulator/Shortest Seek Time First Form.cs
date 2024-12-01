@@ -68,6 +68,11 @@ namespace Disk_Scheduling_Algorithm_Simulator
                         MessageBox.Show("Invalid integer at row " + (i + 1) + ": \n" +
                                         "Value is: " + cellValue.ToString(), "Error");
                     }
+
+                    if (Convert.ToInt32(cellValue) < 0 || Convert.ToInt32(cellValue) >= numberOfTracks)
+                    {
+
+                    }
                 }
             }
 
