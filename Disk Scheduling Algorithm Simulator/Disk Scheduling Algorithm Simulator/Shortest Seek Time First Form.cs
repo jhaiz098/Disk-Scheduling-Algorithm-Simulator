@@ -79,31 +79,72 @@ namespace Disk_Scheduling_Algorithm_Simulator
             }
 
             //Set the current head track
-            initialCurrentHeadPosition = new Random().Next(0, highestTrack);
+            initialCurrentHeadPosition = new Random().Next(0, numberOfTracks);
             currentHeadPosition = initialCurrentHeadPosition;
 
             //Do The main calculation
             Calculate();
+
+            //Draw line graph
+            DrawLineGraph();
         }
 
         private void Calculate()
         {
             while(IsFinished() == false)
             {
-                int nearestTrack;
+                //Find the nearest track
+                int nearestTrack = 0;
+                int nearestTrackIndex = 0;
                 int lowestDifference = int.MaxValue;
                 for (int i = 0; i < requestedTracks.Count; i++)
                 {
+                    if (requestedTracks[i].passed) continue;
+
                     int difference = currentHeadPosition - requestedTracks[i].track;
                     difference = Math.Abs(difference);
 
                     if (difference < lowestDifference)
                     {
                         lowestDifference = difference;
+                        nearestTrackIndex = i;
                         nearestTrack = requestedTracks[i].track;
                     }
                 }
+
+                //Record the track path
+                trackPath.Add(currentHeadPosition);
+
+                //Mark the tracks already passed
+                requestedTracks[nearestTrackIndex].passed = true;
+
+                //Update the current head position
+                currentHeadPosition = nearestTrack;
             }
+
+            //Add the last track
+            trackPath.Add(currentHeadPosition);
+        }
+
+        private void DrawLineGraph()
+        {
+            //Create new series
+            Series trackSeries = new Series
+            {
+                Name = "Tracks",
+                ChartType = SeriesChartType.Line,
+                IsXValueIndexed = true
+            };
+
+            //Draw the line graph
+            for (int i = 0; i < trackPath.Count; i++)
+            {
+                trackSeries.Points.AddXY(i,trackPath[i]);
+            }
+
+            //Set the series of the chart
+            sstf_chart.Series.Add(trackSeries);
+            MessageBox.Show(initialCurrentHeadPosition.ToString() + " : " + trackPath[0]);
         }
 
         private bool IsFinished()

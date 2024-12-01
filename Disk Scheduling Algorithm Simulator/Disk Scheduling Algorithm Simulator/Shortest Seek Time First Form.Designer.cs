@@ -34,6 +34,8 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.tracksTable = new System.Windows.Forms.DataGridView();
+            this.NumOfReqTracks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReqTracks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.sstf_chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -48,8 +50,6 @@
             this.calculate_btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.NumOfReqTracks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReqTracks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tracksTable)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sstf_chart)).BeginInit();
@@ -103,6 +103,20 @@
             this.tracksTable.TabIndex = 1;
             this.tracksTable.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.tracksTable_RowsAdded);
             this.tracksTable.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.tracksTable_RowsRemoved);
+            // 
+            // NumOfReqTracks
+            // 
+            this.NumOfReqTracks.HeaderText = "No. of Requested Tracks";
+            this.NumOfReqTracks.Name = "NumOfReqTracks";
+            this.NumOfReqTracks.ReadOnly = true;
+            this.NumOfReqTracks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ReqTracks
+            // 
+            this.ReqTracks.HeaderText = "Requested Tracks";
+            this.ReqTracks.Name = "ReqTracks";
+            this.ReqTracks.ReadOnly = true;
+            this.ReqTracks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // tableLayoutPanel1
             // 
@@ -279,20 +293,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(800, 10);
             this.panel2.TabIndex = 3;
-            // 
-            // NumOfReqTracks
-            // 
-            this.NumOfReqTracks.HeaderText = "No. of Requested Tracks";
-            this.NumOfReqTracks.Name = "NumOfReqTracks";
-            this.NumOfReqTracks.ReadOnly = true;
-            this.NumOfReqTracks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ReqTracks
-            // 
-            this.ReqTracks.HeaderText = "Requested Tracks";
-            this.ReqTracks.Name = "ReqTracks";
-            this.ReqTracks.ReadOnly = true;
-            this.ReqTracks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Shortest_Seek_Time_First_Form
             // 
