@@ -50,31 +50,8 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         private void calculate_btn_Click(object sender, EventArgs e)
         {
-            //Checks if all input in the requested tracks is integer
-            for (int i = 0; i < tracksTable.RowCount - 1; i++)
-            {
-                var cellValue = tracksTable.Rows[i].Cells[1].Value;
-
-                if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
-                {
-                    MessageBox.Show("Cell is empty or null at row " + (i + 1), "Error");
-                }
-                else
-                {
-                    int val;
-                    if (!int.TryParse(cellValue.ToString(), out val))
-                    {
-                        // If the value is not an integer
-                        MessageBox.Show("Invalid integer at row " + (i + 1) + ": \n" +
-                                        "Value is: " + cellValue.ToString(), "Error");
-                    }
-
-                    if (Convert.ToInt32(cellValue) < 0 || Convert.ToInt32(cellValue) >= numberOfTracks)
-                    {
-
-                    }
-                }
-            }
+            //Checks if all input in the requested tracks is integer and within range
+            if (!IsTrackInputValid()) return;
 
             //Store the input to a list
             for (int i = 0; i < tracksTable.RowCount - 1; i++)
@@ -165,6 +142,46 @@ namespace Disk_Scheduling_Algorithm_Simulator
             //Set the series of the chart
             sstf_chart.Series.Add(trackSeries);
             MessageBox.Show(initialCurrentHeadPosition.ToString() + " : " + trackPath[0]);
+        }
+
+        private bool IsTrackInputValid()
+        {
+            bool isValid = false;
+            //Checks if all input in the requested tracks is integer and within range
+            for (int i = 0; i < tracksTable.RowCount - 1; i++)
+            {
+                var cellValue = tracksTable.Rows[i].Cells[1].Value;
+
+                if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
+                {
+                    MessageBox.Show("Cell is empty or null at row " + (i + 1), "Error");
+                    isValid = false;
+                }
+                else
+                {
+                    int val;
+                    if (!int.TryParse(cellValue.ToString(), out val))
+                    {
+                        // If the value is not an integer
+                        MessageBox.Show("Invalid integer at row " + (i + 1) + ": \n" +
+                                        "Value is: " + cellValue.ToString(), "Error");
+                        isValid = false;
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(cellValue) < 0 || Convert.ToInt32(cellValue) >= numberOfTracks)
+                        {
+                            MessageBox.Show("Row " + (i + 1) + " is outside the valid track range.", "Error");
+                            isValid = false;
+                        }
+                        else
+                        {
+                            isValid = true;
+                        }
+                    }
+                }
+            }
+            return isValid;
         }
 
         private bool IsFinished()
