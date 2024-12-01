@@ -133,14 +133,29 @@ namespace Disk_Scheduling_Algorithm_Simulator
             {
                 Name = "Tracks",
                 ChartType = SeriesChartType.Line,
-                IsXValueIndexed = true
+                IsXValueIndexed = true,
+                Color = Color.Red
             };
+
+            ChartArea trackArea = sstf_chart.ChartAreas[0];
 
             //Draw the line graph
             for (int i = 0; i < trackPath.Count; i++)
             {
-                trackSeries.Points.AddXY(i,trackPath[i]);
+                //Adding points in the line graph
+                trackSeries.Points.AddXY(i, trackPath[i]);
+
+                //Styling the points
+                trackSeries.Points[i].Label = trackSeries.Points[i].YValues[0].ToString();
+                trackSeries.Points[i].LabelForeColor = Color.Red;
+                trackSeries.Points[i].LabelBackColor = Color.White;
+                trackSeries.Points[i].Font = new Font(trackSeries.Points[i].Font.FontFamily, 10, FontStyle.Bold);
+                trackSeries.Points[i].MarkerStyle = MarkerStyle.Circle;
+                trackSeries.Points[i].MarkerSize = 10;
             }
+
+            trackArea.AxisY.Maximum = numberOfTracks - 1;
+            trackArea.AxisY.Minimum = 0;
 
             //Set the series of the chart
             sstf_chart.Series.Add(trackSeries);
@@ -186,6 +201,9 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 tracksTable.DefaultCellStyle.BackColor = SystemColors.Window;
 
                 numberOfTracks = noOfTracks;
+
+                //Change the text of the label below
+                label5.Text += ": Enter tracks (0 - " + (numberOfTracks - 1) + ")";
             }
             else
             {

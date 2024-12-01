@@ -151,6 +151,7 @@
             // 
             // sstf_chart
             // 
+            chartArea1.AxisX.IsMarginVisible = false;
             chartArea1.Name = "ChartArea1";
             this.sstf_chart.ChartAreas.Add(chartArea1);
             this.sstf_chart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -200,6 +201,8 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(0, 146);
             this.label5.Name = "label5";
@@ -210,7 +213,8 @@
             // 
             // noOfTracks_txt
             // 
-            this.noOfTracks_txt.Dock = System.Windows.Forms.DockStyle.Top;
+            this.noOfTracks_txt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.noOfTracks_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.noOfTracks_txt.Location = new System.Drawing.Point(0, 36);
             this.noOfTracks_txt.Name = "noOfTracks_txt";
@@ -219,7 +223,8 @@
             // 
             // label4
             // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
