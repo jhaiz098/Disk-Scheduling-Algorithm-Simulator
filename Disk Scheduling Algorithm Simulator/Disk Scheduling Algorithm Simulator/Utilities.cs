@@ -47,9 +47,19 @@ namespace Disk_Scheduling_Algorithm_Simulator
         public static void ResetNoOfTracksInputUI(TextBox noOfTracks_txt, Button confirm_btn)
         {
             //Resets no of tracks text field and button
-            noOfTracks_txt.Text = "";
+            noOfTracks_txt.Text = string.Empty;
             noOfTracks_txt.ReadOnly = false;
             confirm_btn.Enabled = true;
+        }
+
+        public static void ResetInitialTrackHeadTB(TextBox tb)
+        {
+            tb.Text = string.Empty;
+        }
+
+        public static void EnableInitialTraackHeadTB(TextBox tb, bool enable)
+        {
+            tb.Enabled = enable;
         }
 
         public static void EnableCalcAndResBtn(Button calculate_btn, Button reset_btn, bool enable)
@@ -73,7 +83,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         public static void ResetInitialHeadTrack(Label initialTrack_lbl)
         {
-            initialTrack_lbl.Text = "";
+            initialTrack_lbl.Text = string.Empty;
         }
 
         public static void ResetOutputHeadMovements(Panel panel5, Panel panel6, Panel panel7)
@@ -153,6 +163,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
             ChartArea trackArea = chart.ChartAreas[0];
 
+
             //Draw the line graph
             for (int i = 0; i < Utilities.trackPath.Count; i++)
             {
@@ -161,8 +172,8 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
                 //Styling the points
                 trackSeries.Points[i].Label = trackSeries.Points[i].YValues[0].ToString();
-                trackSeries.Points[i].LabelForeColor = Color.Red;
-                trackSeries.Points[i].LabelBackColor = Color.White;
+                trackSeries.Points[i].LabelForeColor = Color.White;
+                trackSeries.Points[i].LabelBackColor = Color.Black;
                 trackSeries.Points[i].Font = new Font(trackSeries.Points[i].Font.FontFamily, 10, FontStyle.Bold);
                 trackSeries.Points[i].MarkerStyle = MarkerStyle.Circle;
                 trackSeries.Points[i].MarkerSize = 10;
@@ -170,14 +181,15 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
             trackArea.AxisY.Maximum = Utilities.numberOfTracks - 1;
             trackArea.AxisY.Minimum = 0;
+            trackArea.AxisY.Interval = 1;
 
-            trackArea.AxisY.CustomLabels.Clear();
+            // Set Y-axis labels to only correspond to the track points
+            trackArea.AxisY.LabelStyle.Interval = 0; // Disable automatic label intervals
+            trackArea.AxisY.LabelStyle.IsStaggered = false;
 
-
-            for (int i = 0; i < Utilities.requestedTracks.Count; i++)
-            {
-                trackArea.AxisY.CustomLabels.Add(requestedTracks[i].track, requestedTracks[i].track + 1, requestedTracks[i].track.ToString());
-            }
+            // Enable grid lines only at points of interest (this will be removed)
+            trackArea.AxisY.MajorGrid.Enabled = false;  // Disable grid lines for Y-axis
+            trackArea.AxisX.MajorGrid.Enabled = false;  // Disable grid lines for X-axis
 
             //Set the series of the chart
             chart.Series.Add(trackSeries);
@@ -262,22 +274,40 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         }
 
-        public static void CheckTBIsEmpty(TextBox tb)
+        public static string InitialTrackHeadValidation(TextBox tb)
         {
             //Error if textbox is empty
             if (tb.Text == string.Empty || string.IsNullOrWhiteSpace(tb.Text.ToString()))
             {
-                MessageBox.Show("Invalid input: Please enter a value.", "Error");
-                tb.Text = "";
-                return;
+                return "empty";
+            }
+            else
+            {
+                //Check if textbox input is integer
+                int val;
+                if (int.TryParse(tb.Text, out val))
+                {
+                    // If integer
+                    return "integer";
+                }
+                else
+                {
+                    // If not integer
+                    return "not integer";
+                }
             }
         }
 
         public static void NoOfTracksValidation(TextBox noOfTracks_txt, Button confirm_btn, Button calculate_btn, Button reset_btn, DataGridView tracksTable, Label label5)
         {
             //Error if number of tracks is empty
-            CheckTBIsEmpty(noOfTracks_txt);
-            
+            if (noOfTracks_txt.Text == string.Empty || string.IsNullOrWhiteSpace(noOfTracks_txt.Text.ToString()))
+            {
+                MessageBox.Show("Invalid input: Please enter a value.", "Error");
+                noOfTracks_txt.Text = string.Empty;
+                return;
+            }
+
             //Checks if number of tracks input is integer
             int noOfTracks;
             if (int.TryParse(noOfTracks_txt.Text, out noOfTracks))
@@ -302,7 +332,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
             {
                 //If not integer.
                 MessageBox.Show("Invalid input: Only integer values are accepted.", "Error");
-                noOfTracks_txt.Text = "";
+                noOfTracks_txt.Text = string.Empty;
             }
         }
     }

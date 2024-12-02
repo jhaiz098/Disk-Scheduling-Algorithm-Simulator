@@ -47,10 +47,37 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 return;
             }
 
-            Utilities.ResetVariables();
-            Utilities.ResetLineGraph(sstf_chart);
-            Utilities.ResetInitialHeadTrack(initialTrack_lbl);
-            Utilities.ResetOutputHeadMovements(panel5,panel6,panel7);
+            //if(initialHeadTrack_txt.Text)
+            switch (Utilities.InitialTrackHeadValidation(initialHeadTrack_txt))
+            {
+                case "empty":
+                    //if the textbox is empty
+                    //Set random current head track
+                    Utilities.ResetVariables();
+                    Utilities.ResetLineGraph(sstf_chart);
+                    Utilities.ResetInitialHeadTrack(initialTrack_lbl);
+                    Utilities.ResetOutputHeadMovements(panel5, panel6, panel7);
+
+                    Utilities.initialCurrentHeadPosition = new Random().Next(0, Utilities.numberOfTracks);
+                    Utilities.currentHeadPosition = Utilities.initialCurrentHeadPosition;
+                    break;
+                case "integer":
+                    //if the textbox input is integer
+                    //Set the textbox input as current head track
+                    Utilities.ResetVariables();
+                    Utilities.ResetLineGraph(sstf_chart);
+                    Utilities.ResetInitialHeadTrack(initialTrack_lbl);
+                    Utilities.ResetOutputHeadMovements(panel5, panel6, panel7);
+
+                    Utilities.initialCurrentHeadPosition = Convert.ToInt32(initialHeadTrack_txt.Text);
+                    Utilities.currentHeadPosition = Utilities.initialCurrentHeadPosition;
+                    break;
+                case "not integer":
+                    //if the textbox input is not integer
+                    //Make a pop up error msg
+                    MessageBox.Show("Invalid input: Only integer values are accepted.", "Error");
+                    return;
+            }
 
             //Store the input to a list
             for (int i = 0; i < tracksTable.RowCount - 1; i++)
@@ -58,12 +85,6 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 int track = Convert.ToInt32(tracksTable.Rows[i].Cells[1].Value);
                 Utilities.requestedTracks.Add(new Track(track));
             }
-
-            //Set the current head track
-            Utilities.initialCurrentHeadPosition = new Random().Next(0, Utilities.numberOfTracks);
-            Utilities.currentHeadPosition = Utilities.initialCurrentHeadPosition;
-
-            //if(initialHeadTrack_txt.Text)
 
             //Do The main calculation
             Calculate();
@@ -118,6 +139,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
         private void confirm_btn_Click(object sender, EventArgs e)
         {
             Utilities.NoOfTracksValidation(noOfTracks_txt, confirm_btn, calculate_btn, reset_btn, tracksTable, label5);
+            Utilities.EnableInitialTraackHeadTB(initialHeadTrack_txt, true);
         }
 
         private void reset_btn_Click(object sender, EventArgs e)
@@ -125,6 +147,8 @@ namespace Disk_Scheduling_Algorithm_Simulator
             Utilities.ResetVariables();
             Utilities.ResetNoOfTracks();
             Utilities.ResetNoOfTracksInputUI(noOfTracks_txt, confirm_btn);
+            Utilities.ResetInitialTrackHeadTB(initialHeadTrack_txt);
+            Utilities.EnableInitialTraackHeadTB(initialHeadTrack_txt, false);
             Utilities.EnableCalcAndResBtn(calculate_btn, reset_btn, false);
             Utilities.ResetReqTracksTable(tracksTable);
             Utilities.ResetLineGraph(sstf_chart);
