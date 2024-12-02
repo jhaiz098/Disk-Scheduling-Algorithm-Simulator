@@ -46,6 +46,11 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         private void calculate_btn_Click(object sender, EventArgs e)
         {
+            ResetVariables();
+            ResetLineGraph();
+            ResetInitialHeadTrack();
+            ResetOutputHeadMovements();
+
             //Checks if all input in the requested tracks is integer and within range
             if (!IsTrackInputValid()) return;
 
@@ -65,6 +70,9 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
             //Draw line graph
             DrawLineGraph();
+
+            //Print the initial head track
+            PrintInitialHeadTrack();
 
             //Output the number of head movements in the table below
             OutputHeadMovements();
@@ -140,7 +148,11 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
             //Set the series of the chart
             sstf_chart.Series.Add(trackSeries);
-            MessageBox.Show(initialCurrentHeadPosition.ToString() + " : " + trackPath[0]);
+        }
+
+        private void PrintInitialHeadTrack()
+        {
+            initialTrack_lbl.Text = initialCurrentHeadPosition.ToString();
         }
 
         private void OutputHeadMovements()
@@ -193,8 +205,6 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 {
                     label.Text += " + ";
                 }
-
-                MessageBox.Show(i.ToString());
             }
 
             //Display the addition of the track movements
@@ -313,12 +323,14 @@ namespace Disk_Scheduling_Algorithm_Simulator
         private void reset_btn_Click(object sender, EventArgs e)
         {
             ResetVariables();
-            ResetNoOfTracksInput();
+            ResetNoOfTracks();
+            ResetNoOfTracksInputUI();
             EnableCalcAndResBtn(false);
             ResetReqTracksTable();
             ResetLineGraph();
             ResetOutputHeadMovements();
             ResetTracksRangeIndicator();
+            ResetInitialHeadTrack();
         }
 
         private void ResetVariables()
@@ -326,12 +338,16 @@ namespace Disk_Scheduling_Algorithm_Simulator
             //Resets global variables
             requestedTracks.Clear();
             trackPath.Clear();
-            numberOfTracks = 0;
             initialCurrentHeadPosition = 0;
             currentHeadPosition = 0;
         }
 
-        private void ResetNoOfTracksInput()
+        private void ResetNoOfTracks()
+        {
+            numberOfTracks = 0;
+        }
+
+        private void ResetNoOfTracksInputUI()
         {
             //Resets no of tracks text field and button
             noOfTracks_txt.Text = "";
@@ -356,6 +372,11 @@ namespace Disk_Scheduling_Algorithm_Simulator
         private void ResetLineGraph()
         {
             sstf_chart.Series.Clear();
+        }
+
+        private void ResetInitialHeadTrack()
+        {
+            initialTrack_lbl.Text = "";
         }
 
         private void ResetOutputHeadMovements()

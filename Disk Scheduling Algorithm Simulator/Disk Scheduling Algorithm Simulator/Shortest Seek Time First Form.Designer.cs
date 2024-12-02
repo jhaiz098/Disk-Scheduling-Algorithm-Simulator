@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.label1 = new System.Windows.Forms.Label();
             this.tracksTable = new System.Windows.Forms.DataGridView();
             this.NumOfReqTracks = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,7 +57,7 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.initialTrack_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tracksTable)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sstf_chart)).BeginInit();
@@ -84,30 +84,30 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tracksTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tracksTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tracksTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tracksTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tracksTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NumOfReqTracks,
             this.ReqTracks});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.WindowFrame;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.WindowFrame;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tracksTable.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.WindowFrame;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.WindowFrame;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tracksTable.DefaultCellStyle = dataGridViewCellStyle2;
             this.tracksTable.Location = new System.Drawing.Point(0, 185);
             this.tracksTable.Name = "tracksTable";
             this.tracksTable.ReadOnly = true;
-            this.tracksTable.Size = new System.Drawing.Size(378, 295);
+            this.tracksTable.Size = new System.Drawing.Size(377, 295);
             this.tracksTable.TabIndex = 1;
             this.tracksTable.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.tracksTable_RowsAdded);
             this.tracksTable.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.tracksTable_RowsRemoved);
@@ -159,12 +159,12 @@
             // 
             // sstf_chart
             // 
-            chartArea3.AxisX.IsMarginVisible = false;
-            chartArea3.Name = "ChartArea1";
-            this.sstf_chart.ChartAreas.Add(chartArea3);
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.Name = "ChartArea1";
+            this.sstf_chart.ChartAreas.Add(chartArea1);
             this.sstf_chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.sstf_chart.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.sstf_chart.Legends.Add(legend1);
             this.sstf_chart.Location = new System.Drawing.Point(397, 98);
             this.sstf_chart.Name = "sstf_chart";
             this.sstf_chart.Size = new System.Drawing.Size(387, 522);
@@ -188,9 +188,11 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Location = new System.Drawing.Point(-4, 118);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(408, 25);
+            this.panel3.Size = new System.Drawing.Size(381, 25);
             this.panel3.TabIndex = 9;
             // 
             // confirm_btn
@@ -201,7 +203,7 @@
             this.confirm_btn.Location = new System.Drawing.Point(0, 65);
             this.confirm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.confirm_btn.Name = "confirm_btn";
-            this.confirm_btn.Size = new System.Drawing.Size(378, 50);
+            this.confirm_btn.Size = new System.Drawing.Size(377, 50);
             this.confirm_btn.TabIndex = 0;
             this.confirm_btn.Text = "Confirm";
             this.confirm_btn.UseVisualStyleBackColor = true;
@@ -214,7 +216,7 @@
             this.label5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(0, 146);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(379, 36);
+            this.label5.Size = new System.Drawing.Size(378, 36);
             this.label5.TabIndex = 8;
             this.label5.Text = "Enter requested tracks";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -226,7 +228,7 @@
             this.noOfTracks_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.noOfTracks_txt.Location = new System.Drawing.Point(0, 36);
             this.noOfTracks_txt.Name = "noOfTracks_txt";
-            this.noOfTracks_txt.Size = new System.Drawing.Size(378, 26);
+            this.noOfTracks_txt.Size = new System.Drawing.Size(377, 26);
             this.noOfTracks_txt.TabIndex = 6;
             // 
             // label4
@@ -236,7 +238,7 @@
             this.label4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(370, 36);
+            this.label4.Size = new System.Drawing.Size(369, 36);
             this.label4.TabIndex = 5;
             this.label4.Text = "Enter number of tracks";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -335,7 +337,7 @@
             this.label6.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(12, 870);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(771, 23);
+            this.label6.Size = new System.Drawing.Size(703, 23);
             this.label6.TabIndex = 5;
             this.label6.Text = "The total number of head movements is";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -375,22 +377,21 @@
             this.label7.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(8, 778);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(771, 23);
+            this.label7.Size = new System.Drawing.Size(792, 23);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Input Summary";
+            this.label7.Text = "Initial head track";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label8
+            // initialTrack_lbl
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.initialTrack_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 801);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(771, 23);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "0";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.initialTrack_lbl.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.initialTrack_lbl.Location = new System.Drawing.Point(8, 803);
+            this.initialTrack_lbl.Name = "initialTrack_lbl";
+            this.initialTrack_lbl.Size = new System.Drawing.Size(792, 23);
+            this.initialTrack_lbl.TabIndex = 13;
+            this.initialTrack_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Shortest_Seek_Time_First_Form
             // 
@@ -398,7 +399,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(868, 701);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.initialTrack_lbl);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel7);
@@ -449,6 +450,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label initialTrack_lbl;
     }
 }
