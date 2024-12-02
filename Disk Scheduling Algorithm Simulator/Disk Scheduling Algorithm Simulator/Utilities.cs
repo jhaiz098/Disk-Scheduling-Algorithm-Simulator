@@ -171,6 +171,14 @@ namespace Disk_Scheduling_Algorithm_Simulator
             trackArea.AxisY.Maximum = Utilities.numberOfTracks - 1;
             trackArea.AxisY.Minimum = 0;
 
+            trackArea.AxisY.CustomLabels.Clear();
+
+
+            for (int i = 0; i < Utilities.requestedTracks.Count; i++)
+            {
+                trackArea.AxisY.CustomLabels.Add(requestedTracks[i].track, requestedTracks[i].track + 1, requestedTracks[i].track.ToString());
+            }
+
             //Set the series of the chart
             chart.Series.Add(trackSeries);
         }
@@ -254,16 +262,22 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         }
 
+        public static void CheckTBIsEmpty(TextBox tb)
+        {
+            //Error if textbox is empty
+            if (tb.Text == string.Empty || string.IsNullOrWhiteSpace(tb.Text.ToString()))
+            {
+                MessageBox.Show("Invalid input: Please enter a value.", "Error");
+                tb.Text = "";
+                return;
+            }
+        }
+
         public static void NoOfTracksValidation(TextBox noOfTracks_txt, Button confirm_btn, Button calculate_btn, Button reset_btn, DataGridView tracksTable, Label label5)
         {
             //Error if number of tracks is empty
-            if (noOfTracks_txt.Text == string.Empty || string.IsNullOrWhiteSpace(noOfTracks_txt.Text.ToString()))
-            {
-                MessageBox.Show("Invalid input: Please enter a value.", "Error");
-                noOfTracks_txt.Text = "";
-                return;
-            }
-
+            CheckTBIsEmpty(noOfTracks_txt);
+            
             //Checks if number of tracks input is integer
             int noOfTracks;
             if (int.TryParse(noOfTracks_txt.Text, out noOfTracks))

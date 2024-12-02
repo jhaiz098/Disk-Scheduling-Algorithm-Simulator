@@ -63,6 +63,8 @@ namespace Disk_Scheduling_Algorithm_Simulator
             Utilities.initialCurrentHeadPosition = new Random().Next(0, Utilities.numberOfTracks);
             Utilities.currentHeadPosition = Utilities.initialCurrentHeadPosition;
 
+            //if(initialHeadTrack_txt.Text)
+
             //Do The main calculation
             Calculate();
 
