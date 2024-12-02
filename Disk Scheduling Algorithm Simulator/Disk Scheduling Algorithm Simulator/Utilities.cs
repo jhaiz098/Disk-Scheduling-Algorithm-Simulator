@@ -138,7 +138,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
                     }
                     else
                     {
-                        if (Convert.ToInt32(cellValue) < 0 || Convert.ToInt32(cellValue) >= Utilities.numberOfTracks)
+                        if (Convert.ToInt32(cellValue) < 0 || Convert.ToInt32(cellValue) >= numberOfTracks)
                         {
                             MessageBox.Show("Row " + (i + 1) + " is outside the valid track range.", "Error");
 
@@ -165,10 +165,10 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
 
             //Draw the line graph
-            for (int i = 0; i < Utilities.trackPath.Count; i++)
+            for (int i = 0; i < trackPath.Count; i++)
             {
                 //Adding points in the line graph
-                trackSeries.Points.AddXY(i, Utilities.trackPath[i]);
+                trackSeries.Points.AddXY(i, trackPath[i]);
 
                 //Styling the points
                 trackSeries.Points[i].Label = trackSeries.Points[i].YValues[0].ToString();
@@ -179,7 +179,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 trackSeries.Points[i].MarkerSize = 10;
             }
 
-            trackArea.AxisY.Maximum = Utilities.numberOfTracks - 1;
+            trackArea.AxisY.Maximum = numberOfTracks - 1;
             trackArea.AxisY.Minimum = 0;
             trackArea.AxisY.Interval = 1;
 
@@ -197,7 +197,7 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
         public static void PrintInitialHeadTrack(Label initialTrack_lbl)
         {
-            initialTrack_lbl.Text = Utilities.initialCurrentHeadPosition.ToString();
+            initialTrack_lbl.Text = initialCurrentHeadPosition.ToString();
         }
 
         public static void OutputHeadMovements(Panel panel5, Panel panel6, Panel panel7)
@@ -231,22 +231,22 @@ namespace Disk_Scheduling_Algorithm_Simulator
             label2.Text = "= ";
 
             //Display the subtraction of the tracks movements
-            for (int i = 0; i < Utilities.trackPath.Count; i++)
+            for (int i = 0; i < trackPath.Count; i++)
             {
-                if (i == Utilities.trackPath.Count - 1) break;
+                if (i == trackPath.Count - 1) break;
 
-                if (Utilities.trackPath[i] > Utilities.trackPath[i + 1])
+                if (trackPath[i] > trackPath[i + 1])
                 {
-                    label.Text += "(" + Utilities.trackPath[i] + " - " + Utilities.trackPath[i + 1] + ")";
-                    trackPathDif.Add(Utilities.trackPath[i] - Utilities.trackPath[i + 1]);
+                    label.Text += "(" + trackPath[i] + " - " + trackPath[i + 1] + ")";
+                    trackPathDif.Add(trackPath[i] - trackPath[i + 1]);
                 }
                 else
                 {
-                    label.Text += "(" + Utilities.trackPath[i + 1] + " - " + Utilities.trackPath[i] + ")";
-                    trackPathDif.Add(Utilities.trackPath[i + 1] - Utilities.trackPath[i]);
+                    label.Text += "(" + trackPath[i + 1] + " - " + trackPath[i] + ")";
+                    trackPathDif.Add(trackPath[i + 1] - trackPath[i]);
                 }
 
-                if (i != Utilities.trackPath.Count - 2)
+                if (i != trackPath.Count - 2)
                 {
                     label.Text += " + ";
                 }
@@ -288,7 +288,17 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 if (int.TryParse(tb.Text, out val))
                 {
                     // If integer
-                    return "integer";
+
+                    if (val > 0 && val < numberOfTracks - 1)
+                    {
+                        //if value is within range
+                        return "valid";
+                    }
+                    else
+                    {
+                        //if value is not within range
+                        return "invalid";
+                    }
                 }
                 else
                 {
@@ -326,13 +336,22 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 numberOfTracks = noOfTracks;
 
                 //Change the text of the label below
-                label5.Text += ": Enter tracks (0 - " + (Utilities.numberOfTracks - 1) + ")";
+                label5.Text += ": Enter tracks (0 - " + (numberOfTracks - 1) + ")";
             }
             else
             {
                 //If not integer.
                 MessageBox.Show("Invalid input: Only integer values are accepted.", "Error");
                 noOfTracks_txt.Text = string.Empty;
+            }
+        }
+
+        public static void StoreInputToList(DataGridView tracksTable)
+        {
+            for (int i = 0; i < tracksTable.RowCount - 1; i++)
+            {
+                int track = Convert.ToInt32(tracksTable.Rows[i].Cells[1].Value);
+                requestedTracks.Add(new Track(track));
             }
         }
     }

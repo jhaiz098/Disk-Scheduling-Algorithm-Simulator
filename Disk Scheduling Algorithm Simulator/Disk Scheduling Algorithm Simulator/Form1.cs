@@ -32,5 +32,11 @@ namespace Disk_Scheduling_Algorithm_Simulator
             Shortest_Seek_Time_First_Form sstf = new Shortest_Seek_Time_First_Form();
             LoadFormInPanel(sstf);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Scan_Disk_Form sd = new Scan_Disk_Form();
+            LoadFormInPanel(sd);
+        }
     }
 }
