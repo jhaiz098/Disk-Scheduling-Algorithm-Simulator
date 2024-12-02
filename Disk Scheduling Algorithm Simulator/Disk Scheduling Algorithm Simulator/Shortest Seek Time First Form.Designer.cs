@@ -71,7 +71,7 @@
             this.label1.Font = new System.Drawing.Font("Consolas", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(851, 117);
+            this.label1.Size = new System.Drawing.Size(885, 117);
             this.label1.TabIndex = 0;
             this.label1.Text = "Shortest Seek Time First";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -307,7 +307,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 1013);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(851, 10);
+            this.panel2.Size = new System.Drawing.Size(885, 10);
             this.panel2.TabIndex = 3;
             // 
             // panel7
@@ -398,7 +398,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(868, 701);
+            this.ClientSize = new System.Drawing.Size(902, 701);
             this.Controls.Add(this.initialTrack_lbl);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel8);
