@@ -18,10 +18,6 @@ namespace Disk_Scheduling_Algorithm_Simulator
         private List<Track> requestedTracks = new List<Track>();
         private List<int> trackPath = new List<int>();
         private int numberOfTracks;
-
-        private int highestTrack;
-        private int minBoundTrack = 0;
-        private int maxBoundTrack;
         private int initialCurrentHeadPosition;
         private int currentHeadPosition;
 
@@ -69,6 +65,9 @@ namespace Disk_Scheduling_Algorithm_Simulator
 
             //Draw line graph
             DrawLineGraph();
+
+            //Output the number of head movements in the table below
+            OutputHeadMovements();
         }
 
         private void Calculate()
@@ -144,9 +143,85 @@ namespace Disk_Scheduling_Algorithm_Simulator
             MessageBox.Show(initialCurrentHeadPosition.ToString() + " : " + trackPath[0]);
         }
 
+        private void OutputHeadMovements()
+        {
+            List<int> trackPathDif = new List<int>();
+            int trackPathSum = 0;
+
+            Label label = new Label
+            {
+                Font = new Font("Consolas", 11),
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft,
+                Dock = DockStyle.Fill
+            };
+
+            Label label1 = new Label
+            {
+                Font = new Font("Consolas", 11),
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft,
+                Dock = DockStyle.Fill
+            };
+
+            Label label2 = new Label
+            {
+                Font = new Font("Consolas", 11),
+                TextAlign = System.Drawing.ContentAlignment.MiddleLeft,
+                Dock = DockStyle.Fill
+            };
+
+            label.Text = "= ";
+            label1.Text = "= ";
+            label2.Text = "= ";
+
+            //Display the subtraction of the tracks movements
+            for (int i = 0; i < trackPath.Count; i++)
+            {
+                if (i == trackPath.Count - 1) break;
+
+                if (trackPath[i] > trackPath[i + 1])
+                {
+                    label.Text += "(" + trackPath[i] + " - " + trackPath[i + 1] + ")";
+                    trackPathDif.Add(trackPath[i] - trackPath[i + 1]);
+                }
+                else
+                {
+                    label.Text += "(" + trackPath[i + 1] + " - " + trackPath[i] + ")";
+                    trackPathDif.Add(trackPath[i + 1] - trackPath[i]);
+                }
+
+                if (i != trackPath.Count - 2)
+                {
+                    label.Text += " + ";
+                }
+
+                MessageBox.Show(i.ToString());
+            }
+
+            //Display the addition of the track movements
+            for (int i = 0; i < trackPathDif.Count; i++)
+            {
+                label1.Text += trackPathDif[i];
+
+                if (i != trackPathDif.Count - 1)
+                {
+                    label1.Text += " + ";
+                }
+
+                //Get the sum of the difference
+                trackPathSum += trackPathDif[i];
+            }
+
+            label2.Text += trackPathSum.ToString() + " Tracks";
+
+            panel5.Controls.Add(label);
+            panel6.Controls.Add(label1);
+            panel7.Controls.Add(label2);
+
+        }
+
         private bool IsTrackInputValid()
         {
-            bool isValid = false;
+            bool isValid = true;
             //Checks if all input in the requested tracks is integer and within range
             for (int i = 0; i < tracksTable.RowCount - 1; i++)
             {
@@ -155,7 +230,8 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
                 {
                     MessageBox.Show("Cell is empty or null at row " + (i + 1), "Error");
-                    isValid = false;
+
+                    if(isValid) isValid = false;
                 }
                 else
                 {
@@ -165,18 +241,16 @@ namespace Disk_Scheduling_Algorithm_Simulator
                         // If the value is not an integer
                         MessageBox.Show("Invalid integer at row " + (i + 1) + ": \n" +
                                         "Value is: " + cellValue.ToString(), "Error");
-                        isValid = false;
+
+                        if (isValid) isValid = false; isValid = false;
                     }
                     else
                     {
                         if (Convert.ToInt32(cellValue) < 0 || Convert.ToInt32(cellValue) >= numberOfTracks)
                         {
                             MessageBox.Show("Row " + (i + 1) + " is outside the valid track range.", "Error");
-                            isValid = false;
-                        }
-                        else
-                        {
-                            isValid = true;
+
+                            if (isValid) isValid = false; isValid = false;
                         }
                     }
                 }
@@ -234,6 +308,66 @@ namespace Disk_Scheduling_Algorithm_Simulator
                 noOfTracks_txt.Text = "";
             }
 
+        }
+
+        private void reset_btn_Click(object sender, EventArgs e)
+        {
+            ResetVariables();
+            ResetNoOfTracksInput();
+            EnableCalcAndResBtn(false);
+            ResetReqTracksTable();
+            ResetLineGraph();
+            ResetOutputHeadMovements();
+            ResetTracksRangeIndicator();
+        }
+
+        private void ResetVariables()
+        {
+            //Resets global variables
+            requestedTracks.Clear();
+            trackPath.Clear();
+            numberOfTracks = 0;
+            initialCurrentHeadPosition = 0;
+            currentHeadPosition = 0;
+        }
+
+        private void ResetNoOfTracksInput()
+        {
+            //Resets no of tracks text field and button
+            noOfTracks_txt.Text = "";
+            noOfTracks_txt.ReadOnly = false;
+            confirm_btn.Enabled = true;
+        }
+           
+        private void EnableCalcAndResBtn(bool enable)
+        {
+            //Enable or disable calc and reset btn
+            calculate_btn.Enabled = enable;
+            reset_btn.Enabled = enable;
+        }
+
+        private void ResetReqTracksTable()
+        {
+            tracksTable.ReadOnly = true;
+            tracksTable.Rows.Clear();
+            tracksTable.DefaultCellStyle.BackColor = SystemColors.WindowFrame;
+        }
+
+        private void ResetLineGraph()
+        {
+            sstf_chart.Series.Clear();
+        }
+
+        private void ResetOutputHeadMovements()
+        {
+            panel5.Controls.Clear();
+            panel6.Controls.Clear();
+            panel7.Controls.Clear();
+        }
+
+        private void ResetTracksRangeIndicator()
+        {
+            label5.Text = "Enter requested tracks";
         }
     }
 
