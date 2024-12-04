@@ -269,12 +269,32 @@ namespace Disk_Scheduling_Algorithm_Simulator_2
                         }
                     }
 
-                    if (nearestTrack == -1)
+                    if (nearestTrack == 0)
                     {
+                        int lowestTrack = 0;
+                        int lowestTrackIndex = 0;
+                        int lowestTrackDistance = int.MinValue;
+                        
                         for(int o = 0; o < Utilities.requestedTracks.Count; o++)
                         {
+                            if (Utilities.requestedTracks[i].track <= Utilities.currentHeadPosition && Utilities.requestedTracks[i].passed == false)
+                            {
+                                int tempDistanceToCurrentHeadTrack = Utilities.requestedTracks[i].track - Utilities.currentHeadPosition;
+                                tempDistanceToCurrentHeadTrack = Math.Abs(tempDistanceToCurrentHeadTrack);
 
+                                if (tempDistanceToCurrentHeadTrack > lowestTrackDistance)
+                                {
+                                    lowestTrack = Utilities.requestedTracks[i].track;
+                                    lowestTrackIndex = i;
+                                    lowestTrackDistance = tempDistanceToCurrentHeadTrack;
+                                }
+                            }
                         }
+                        
+                        Utilities.currentHeadPosition = lowestTrack;
+
+                        Utilities.trackPath.Add(Utilities.currentHeadPosition);
+                        Utilities.requestedTracks[lowestTrackIndex].passed = true;
                     }
                 }
 
