@@ -172,10 +172,77 @@ namespace Disk_Scheduling_Algorithm_Simulator_2
 
         private void CalculateScanDisk()
         {
+            bool ascending = true;
+            int nearestTrackIndex = 0;
             while (Utilities.IsFinished() == false)
             {
+                int nearestTrack = -1 ;
+                int nearestTrackDistance = int.MaxValue;
+                
+                if (ascending)
+                {
+                    // Checks which track is greater than and nearest to the current head track
+                    for (int i = 0; i < Utilities.requestedTracks.Count; i++)
+                    {
+                        // if the current track is greater than the current track position
+                        if (Utilities.requestedTracks[i].track >= Utilities.currentHeadPosition && Utilities.requestedTracks[i].passed == false)
+                        {
+                            int tempDistanceToCurrentHeadTrack = Utilities.requestedTracks[i].track - Utilities.currentHeadPosition;
+                            tempDistanceToCurrentHeadTrack = Math.Abs(tempDistanceToCurrentHeadTrack);
 
+                            if (tempDistanceToCurrentHeadTrack < nearestTrackDistance)
+                            {
+                                nearestTrack = Utilities.requestedTracks[i].track;
+                                nearestTrackIndex = i;
+                                nearestTrackDistance = tempDistanceToCurrentHeadTrack;
+                            }
+                        }
+                    }
+
+                    if (nearestTrack == -1)
+                    {
+                        Utilities.trackPath.Add(Utilities.currentHeadPosition);
+                        Utilities.requestedTracks[nearestTrackIndex].passed = true;
+
+                        Utilities.currentHeadPosition = Utilities.numberOfTracks - 1;
+                        
+                        ascending = false;
+                        continue;
+                    }
+                }
+                else
+                {
+                    // Checks which track is less than and nearest to the current head track
+                    for (int i = 0; i < Utilities.requestedTracks.Count; i++)
+                    {
+                        // if the current track is less than the current track position
+                        if (Utilities.requestedTracks[i].track <= Utilities.currentHeadPosition && Utilities.requestedTracks[i].passed == false)
+                        {
+                            int tempDistanceToCurrentHeadTrack = Utilities.requestedTracks[i].track - Utilities.currentHeadPosition;
+                            tempDistanceToCurrentHeadTrack = Math.Abs(tempDistanceToCurrentHeadTrack);
+
+                            if (tempDistanceToCurrentHeadTrack < nearestTrackDistance)
+                            {
+                                nearestTrack = Utilities.requestedTracks[i].track;
+                                nearestTrackIndex = i;
+                                nearestTrackDistance = tempDistanceToCurrentHeadTrack;
+                            }
+                        }
+                    }
+                }
+
+                //Record the track path
+                Utilities.trackPath.Add(Utilities.currentHeadPosition);
+
+                //Mark the tracks already passed
+                Utilities.requestedTracks[nearestTrackIndex].passed = true;
+
+                //Update the current head position
+                Utilities.currentHeadPosition = nearestTrack;
             }
+
+            //Add the last track
+            Utilities.trackPath.Add(Utilities.currentHeadPosition);
         }
 
         private void CalculateCLook()
