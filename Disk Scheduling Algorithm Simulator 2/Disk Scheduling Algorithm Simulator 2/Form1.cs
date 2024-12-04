@@ -247,10 +247,49 @@ namespace Disk_Scheduling_Algorithm_Simulator_2
 
         private void CalculateCLook()
         {
+
             while (Utilities.IsFinished() == false)
             {
+                int nearestTrack = -1;
+                int nearestTrackIndex = 0;
+                int nearestTrackDistance = int.MaxValue;
 
+                for (int i = 0; i < Utilities.requestedTracks.Count; i++)
+                {
+                    if (Utilities.requestedTracks[i].track > Utilities.currentHeadPosition && Utilities.requestedTracks[i].passed == false)
+                    {
+                        int tempDistanceToCurrentHeadTrack = Utilities.requestedTracks[i].track - Utilities.currentHeadPosition;
+                        tempDistanceToCurrentHeadTrack = Math.Abs(tempDistanceToCurrentHeadTrack);
+
+                        if (tempDistanceToCurrentHeadTrack < nearestTrackDistance)
+                        {
+                            nearestTrack = Utilities.requestedTracks[i].track;
+                            nearestTrackIndex = i;
+                            nearestTrackDistance = tempDistanceToCurrentHeadTrack;
+                        }
+                    }
+
+                    if (nearestTrack == -1)
+                    {
+                        for(int o = 0; o < Utilities.requestedTracks.Count; o++)
+                        {
+
+                        }
+                    }
+                }
+
+                //Record the track path
+                Utilities.trackPath.Add(Utilities.currentHeadPosition);
+
+                //Mark the tracks already passed
+                Utilities.requestedTracks[nearestTrackIndex].passed = true;
+
+                //Update the current head position
+                Utilities.currentHeadPosition = nearestTrack;
             }
+
+            //Add the last track
+            Utilities.trackPath.Add(Utilities.currentHeadPosition);
         }
 
         private void reset_btn_Click(object sender, EventArgs e)
