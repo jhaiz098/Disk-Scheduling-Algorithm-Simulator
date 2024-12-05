@@ -247,7 +247,6 @@ namespace Disk_Scheduling_Algorithm_Simulator_2
 
         private void CalculateCLook()
         {
-
             while (Utilities.IsFinished() == false)
             {
                 int nearestTrack = -1;
@@ -268,14 +267,17 @@ namespace Disk_Scheduling_Algorithm_Simulator_2
                             nearestTrackDistance = tempDistanceToCurrentHeadTrack;
                         }
                     }
+                }
 
-                    if (nearestTrack == 0)
+                int lowestTrack = 0;
+                int lowestTrackIndex = 0;
+                int lowestTrackDistance = int.MinValue;
+
+                for (int i = 0; i < Utilities.requestedTracks.Count; i++)
+                {
+                    if (nearestTrack == -1)
                     {
-                        int lowestTrack = 0;
-                        int lowestTrackIndex = 0;
-                        int lowestTrackDistance = int.MinValue;
-                        
-                        for(int o = 0; o < Utilities.requestedTracks.Count; o++)
+                        for (int o = 0; o < Utilities.requestedTracks.Count; o++)
                         {
                             if (Utilities.requestedTracks[i].track <= Utilities.currentHeadPosition && Utilities.requestedTracks[i].passed == false)
                             {
@@ -290,22 +292,31 @@ namespace Disk_Scheduling_Algorithm_Simulator_2
                                 }
                             }
                         }
-                        
-                        Utilities.currentHeadPosition = lowestTrack;
-
-                        Utilities.trackPath.Add(Utilities.currentHeadPosition);
-                        Utilities.requestedTracks[lowestTrackIndex].passed = true;
                     }
                 }
 
-                //Record the track path
-                Utilities.trackPath.Add(Utilities.currentHeadPosition);
+                if(nearestTrack != -1)
+                {
+                    //Record the track path
+                    Utilities.trackPath.Add(Utilities.currentHeadPosition);
 
-                //Mark the tracks already passed
-                Utilities.requestedTracks[nearestTrackIndex].passed = true;
+                    //Mark the tracks already passed
+                    Utilities.requestedTracks[nearestTrackIndex].passed = true;
 
-                //Update the current head position
-                Utilities.currentHeadPosition = nearestTrack;
+                    //Update the current head position
+                    Utilities.currentHeadPosition = nearestTrack;
+                }
+                else
+                {
+                    //Record the track path
+                    Utilities.trackPath.Add(Utilities.currentHeadPosition);
+
+                    //set current head position to the lowest track
+                    Utilities.currentHeadPosition = lowestTrack;
+
+                    //Mark the tracks already passed
+                    Utilities.requestedTracks[lowestTrackIndex].passed = true;
+                }
             }
 
             //Add the last track
